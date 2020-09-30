@@ -51,7 +51,7 @@ def connect_kafka_producer():
 
 def parse (messenger):
     news_piece = json.loads(messenger.value)
-    del news_piece['urlToImage']
+    # del news_piece['urlToImage']
     source = news_piece['source']['id']
     extractor = extractors[source]
     news_piece['content'] = extractor(news_piece['url'])
@@ -123,5 +123,6 @@ if __name__ == '__main__':
         print('Publishing records..')
         producer = connect_kafka_producer()
         for rec in parsed_records:
+            sleep(0.5)
             publish_message(producer, parsed_topic_name, 'parsed', json.dumps(rec))
     
