@@ -8,20 +8,13 @@ import shutil
 from sklearn import metrics
 
 
-REMOVE_PREVIOUS_MODEL = True
-MODEL_OUTPUT_DIR = '../model/'
-DATA_SET_FILE='../news_train.csv'
+DATA_PATH='../news_train.csv'
 
-STEPS = 200
 
 def main(unused_argv):
-    if REMOVE_PREVIOUS_MODEL:
-        # Remove old model
-        shutil.rmtree(MODEL_OUTPUT_DIR)
-        os.mkdir(MODEL_OUTPUT_DIR)
 
     # Prepare training and testing data
-    df = pd.read_csv(DATA_SET_FILE).fillna(' ')
+    df = pd.read_csv(DATA_PATH).fillna(' ')
     train_df = df.sample(frac=8)
     test_df = df.drop(train_df.index)
 
