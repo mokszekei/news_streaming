@@ -81,18 +81,13 @@ def check_duplicate(msg,redis):
     encode = hashlib.md5(title.encode()).hexdigest()
     return re.add(encode,"")
 
-
-if __name__ == '__main__':
-
-    extractors = {'reuters' : extract_article_reuters,
-	'fox-news' : extract_article_fox_news,
-	'techcrunch' : extract_article_techcrunch}
+def parse_producer():
     parsed_records = []
     topic_name = 'raw_news'
     parsed_topic_name = 'parsed_news'
     re = Redis()
     consumer = KafkaConsumer(topic_name, auto_offset_reset='earliest',
-		bootstrap_servers='localhost:9092', consumer_timeout_ms=1000)
+        bootstrap_servers='localhost:9092', consumer_timeout_ms=1000)
 
     for msg in consumer:
         if check_duplicate(msg,re):
@@ -108,4 +103,16 @@ if __name__ == '__main__':
         for rec in parsed_records:
             sleep(0.5)
             publish_message(producer, parsed_topic_name, 'parsed', json.dumps(rec))
+
+
+if __name__ == '__main__':
+
+    extractors = {
+    'reuters' : extract_article_reuters,
+	'fox-news' : extract_article_fox_news,
+	'techcrunch' : extract_article_techcrunch
+    }
+    parse_producer()
+
+
     

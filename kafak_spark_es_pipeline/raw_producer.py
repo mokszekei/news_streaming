@@ -54,16 +54,16 @@ def auto_producer_raw(urls,producer_instance):
     if producer is not None:
         producer.close()
 
-def main():
-    while true:
-        #sleep(600)
-        date = datetime.now().strftime("%Y-%m-%d")
-        sources = ['fox-news', 'techcrunch', 'reuters']
-        urls = generate_urls(date, sources)
-        kafka_producer = connect_kafka_producer()
-        auto_producer_raw(urls,kafka_producer)
+def raw_producer():
+    # while True:
+    #     sleep(600)
+    date = datetime.now().strftime("%Y-%m-%d")
+    sources = ['fox-news', 'techcrunch', 'reuters']
+    urls = generate_urls(date, sources)
+    kafka_producer = connect_kafka_producer()
+    auto_producer_raw(urls,kafka_producer)
 
 if __name__ == '__main__':
-    main()
+    raw_producer()
 
 
