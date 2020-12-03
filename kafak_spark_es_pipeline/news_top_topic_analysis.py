@@ -43,8 +43,8 @@ def get_top_keywords(ori_json,window_length, sliding_interval):
 def send_to_beckend(rdd):
 	if not rdd.isEmpty():
 		element = rdd.collect()
-		print(element[50:90])
-		taken = element[50:90]
+		print(element[10:50])
+		taken = element[10:50]
 		labels = []
 		count = []
 		for kv in taken:
@@ -64,8 +64,8 @@ if __name__ == "__main__":
 
 	directKafkaStream = KafkaUtils.createDirectStream(
 	    ssc, 
-	    # ["test"],  ## topic
-	    ["parsed_news"],
+	    ["test"],  ## topic
+	    # ["parsed_news"],
 	    {"metadata.broker.list": "localhost:9092"}
 	)
 
