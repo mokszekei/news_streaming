@@ -1,7 +1,7 @@
 # news_streaming
 
 This is a real-time News screaming application that makes use of Kafka, Spark, Elasticsearch and Redis. \
-Main functionalities of this app is as followed: \
+Main functionalities of this app is as followed: 
 * Crawls news data from three sources: Reuters, Fox news and Techcrunch.
 * De-duplicated News data using Redis as a lookup database
 * Predict the topic of a News article with XGBoost model.
