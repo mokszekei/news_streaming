@@ -1,6 +1,11 @@
 import logging
 from pprint import pprint
 from elasticsearch import Elasticsearch
+import sys
+import os
+
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'common'))
+
 from news_schema import schema, schema_label
 from es_client import ES_client
 from kafka import KafkaProducer, KafkaConsumer

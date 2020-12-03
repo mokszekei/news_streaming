@@ -1,0 +1,83 @@
+<!doctype html>
+<title>News streaming app</title>
+
+<head>
+    <meta charset="UTF-8">
+    {#<meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+    <link href="{{ url_for('static',filename='css/bootstrap-responsive.css') }}" rel="stylesheet">
+    <title>{% block title %}{% endblock %}News streaming app</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/base.css') }}">
+    <script src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    {% block head %}{% endblock %}
+    <style>
+        .picsize {
+            width: 50px;
+            height: 36px;
+        }
+    </style>
+</head>
+
+
+ <body>
+
+ 	<nav class="navbar navbar-default">
+	    <div class="container">
+	        <!-- Brand and toggle get grouped for better mobile display -->
+	        <div class="navbar-header">
+	            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+	                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+	                <span class="sr-only">Toggle navigation</span>
+	                <span class="icon-bar"></span>
+	                <span class="icon-bar"></span>
+	                <span class="icon-bar"></span>
+	            </button>
+	        </div>
+
+	        <!-- Collect the nav links, forms, and other content for toggling -->
+	        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+	            <form class="navbar-form navbar-left" name="search" action="/news/" method="POST"
+	                  style="text-align: left">
+	                <p>
+	                    <font size="5" color="black" style="margin-right: 30px;">News system</font>
+	                    {% if key %}
+	                        <input type="text" name="key_word" class="form-control" value="{{ key }}">
+	                    {% else %}
+	                        <input type="text" name="key_word" class="form-control" placeholder="search news">
+	                    {% endif %}
+	                    <input type="submit" class="btn btn-default" value="Search">
+	                </p>
+	            </form>
+
+	        </div><!-- /.navbar-collapse -->
+	    </div><!-- /.container-fluid -->
+	</nav>
+
+
+
+
+		{% for n in new %}	
+			<div id="doc">
+	             <ul id="navigation">
+                	<p><big><a href="/news/{{n._id}}" target="_blank">{{ n._source.title }}</a></big></p>
+                	<h6>{{ n._source.source.name }}</h6>
+                	<small class="form-text text-muted">{{ n._source.publishedAt }}</small>
+                	<p class="card-text">{{ n._source.description }}<br/>
+                		<a href="{{ n._source.url }}" target="_blank">{{ n._source.url }}</a>
+                    </p>
+                </ul>
+            </div>
+
+		{% endfor %}
+
+ </body>
+</html>

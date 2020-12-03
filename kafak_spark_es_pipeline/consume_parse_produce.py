@@ -6,6 +6,11 @@ import pandas as pd
 from datetime import datetime
 from kafka import KafkaProducer, KafkaConsumer
 import hashlib
+
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'common'))
+
 from redis_client import Redis
 
 
@@ -81,6 +86,7 @@ def check_duplicate(msg,redis):
     encode = hashlib.md5(title.encode()).hexdigest()
     return re.add(encode,"")
 
+
 def parse_producer():
     parsed_records = []
     topic_name = 'raw_news'
@@ -112,7 +118,10 @@ if __name__ == '__main__':
 	'fox-news' : extract_article_fox_news,
 	'techcrunch' : extract_article_techcrunch
     }
-    parse_producer()
+
+    while True:
+        parse_producer()
+        sleep(600)
 
 
     
